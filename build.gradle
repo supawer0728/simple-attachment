@@ -1,0 +1,22 @@
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+
+    group = 'com.parfiat.study'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compileOnly('org.projectlombok:lombok')
+    }
+}
+
+project(":web") {
+    dependencies {
+        compile ":shared-model"
+    }
+}
