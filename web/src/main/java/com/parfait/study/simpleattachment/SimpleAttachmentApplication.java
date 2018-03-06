@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
+@EnableAspectJAutoProxy(proxyTargetClass = true)
+@EnableFeignClients
 @SpringBootApplication
 public class SimpleAttachmentApplication implements CommandLineRunner {
 
@@ -25,3 +29,4 @@ public class SimpleAttachmentApplication implements CommandLineRunner {
         boardRepository.save(new Board("title3", "content3"));
     }
 }
+

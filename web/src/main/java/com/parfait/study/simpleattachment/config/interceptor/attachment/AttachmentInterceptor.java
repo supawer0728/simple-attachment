@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 @Component
 public class AttachmentInterceptor extends HandlerInterceptorAdapter {
 
-    public static final String TARGET_PARAMETER_NAME = "attachment";
+    private static final String TARGET_PARAMETER_NAME = "attachment";
     private final Map<HandlerMethod, Boolean> attachableMap = new ConcurrentHashMap<>();
     private final AttachmentTypeHolder attachmentTypeHolder;
 

@@ -1,11 +1,14 @@
 package com.parfait.study.simpleattachment.shared.model.attachment;
 
+import lombok.Getter;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Getter
 public enum AttachmentType {
     COMMENTS("comments");
 
