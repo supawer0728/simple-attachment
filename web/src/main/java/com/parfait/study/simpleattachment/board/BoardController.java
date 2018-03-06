@@ -3,6 +3,7 @@ package com.parfait.study.simpleattachment.board;
 import com.parfait.study.simpleattachment.board.converter.BoardDtoConverter;
 import com.parfait.study.simpleattachment.board.domain.Board;
 import com.parfait.study.simpleattachment.board.domain.BoardRepository;
+import com.parfait.study.simpleattachment.config.interceptor.attachment.Attachable;
 import com.parfait.study.simpleattachment.shared.model.board.BoardDto;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ public class BoardController {
                               .collect(Collectors.toList());
     }
 
+    @Attachable
     @GetMapping("/{id}")
     public BoardDto getOne(@PathVariable("id") Board board) {
         return boardDtoConverter.convert(board);
