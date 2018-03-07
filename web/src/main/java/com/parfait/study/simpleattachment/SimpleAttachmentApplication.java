@@ -9,6 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableFeignClients
 @SpringBootApplication
@@ -24,9 +28,10 @@ public class SimpleAttachmentApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        boardRepository.save(new Board("title1", "content1"));
-        boardRepository.save(new Board("title2", "content2"));
-        boardRepository.save(new Board("title3", "content3"));
+        List<Board> boards = IntStream.rangeClosed(1, 100)
+                                      .mapToObj(n -> new Board("title" + n, "content" + n, (long) n))
+                                      .collect(Collectors.toList());
+        boardRepository.saveAll(boards);
     }
 }
 
