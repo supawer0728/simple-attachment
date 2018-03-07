@@ -1,11 +1,12 @@
 package com.parfait.study.simpleattachment.config.aop.attachment.service;
 
+import com.parfait.study.simpleattachment.shared.model.attachment.Attachable;
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentType;
 
-public interface AttachService {
+public interface AttachService<T extends Attachable> {
     AttachmentType getSupportAttachmentType();
 
-    boolean supports(Object object);
+    Class<T> getSupportType();
 
     void attach(Object attachment);
 }

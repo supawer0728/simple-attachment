@@ -3,6 +3,7 @@ package com.parfait.study.simpleattachment.config.aop.attachment;
 import com.parfait.study.simpleattachment.config.aop.attachment.service.AttachService;
 import com.parfait.study.simpleattachment.config.interceptor.attachment.AttachmentTypeHolder;
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentType;
+import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentWrapperGetter;
 import lombok.NonNull;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -20,11 +21,11 @@ import java.util.stream.Collectors;
 public class AttachmentAspect {
 
     private final AttachmentTypeHolder attachmentTypeHolder;
-    private final Map<AttachmentType, List<AttachService>> typeToServiceMap;
+    private final Map<AttachmentType, List<AttachService<? extends AttachmentWrapperGetter>>> typeToServiceMap;
 
     @Autowired
     public AttachmentAspect(@NonNull AttachmentTypeHolder attachmentTypeHolder,
-                            @NonNull List<AttachService> attachService) {
+                            @NonNull List<AttachService<? extends AttachmentWrapperGetter>> attachService) {
         this.attachmentTypeHolder = attachmentTypeHolder;
         this.typeToServiceMap = attachService.stream()
                                              .collect(Collectors.groupingBy(AttachService::getSupportAttachmentType, Collectors.toList()));
@@ -44,7 +45,7 @@ public class AttachmentAspect {
         Set<AttachmentType> types = attachmentTypeHolder.getTypes();
         types.stream()
              .flatMap(type -> typeToServiceMap.get(type).stream())
-             .filter(service -> service.supports(returnValue))
+             .filter(service -> service.getSupportType().isAssignableFrom(returnValue.getClass()))
              .forEach(service -> service.attach(returnValue));
 
         return returnValue;

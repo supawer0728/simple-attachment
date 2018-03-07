@@ -10,9 +10,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class CommentsAttachService implements AttachService {
+public class CommentsAttachService implements AttachService<CommentsAttachable> {
 
     private final CommentClient commentClient;
+    private static final Class<CommentsAttachable> supportType = CommentsAttachable.class;
 
     public CommentsAttachService(@NonNull CommentClient commentClient) {
         this.commentClient = commentClient;
@@ -24,8 +25,8 @@ public class CommentsAttachService implements AttachService {
     }
 
     @Override
-    public boolean supports(Object object) {
-        return CommentsAttachable.class.isAssignableFrom(object.getClass());
+    public Class<CommentsAttachable> getSupportType() {
+        return supportType;
     }
 
     /**
@@ -36,7 +37,7 @@ public class CommentsAttachService implements AttachService {
      */
     @Override
     public void attach(Object attachment) {
-        CommentsAttachable commentsAttachable = CommentsAttachable.class.cast(attachment);
+        CommentsAttachable commentsAttachable = supportType.cast(attachment);
         List<CommentDto> comments = commentClient.getComments(commentsAttachable.getCommentsAttachableTargetId());
         commentsAttachable.attachComments(comments);
     }

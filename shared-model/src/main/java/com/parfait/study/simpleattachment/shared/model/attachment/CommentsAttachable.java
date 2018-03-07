@@ -5,9 +5,11 @@ import com.parfait.study.simpleattachment.shared.model.board.CommentDto;
 
 import java.util.List;
 
-public interface CommentsAttachable {
+public interface CommentsAttachable extends Attachable {
     @JsonIgnore
     long getCommentsAttachableTargetId();
 
-    void attachComments(List<CommentDto> commentsDtoList);
+    default void attachComments(List<CommentDto> commentsDtoList) {
+        getAttachmentWrapper().put(AttachmentType.COMMENTS, commentsDtoList);
+    }
 }

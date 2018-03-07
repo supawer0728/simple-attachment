@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -20,7 +21,7 @@ import java.util.stream.Stream;
 @Component
 public class AttachmentInterceptor extends HandlerInterceptorAdapter {
 
-    private static final String TARGET_PARAMETER_NAME = "attachment";
+    public static final String TARGET_PARAMETER_NAME = "attachment";
     private final Map<HandlerMethod, Boolean> attachableMap = new ConcurrentHashMap<>();
     private final AttachmentTypeHolder attachmentTypeHolder;
 
@@ -57,6 +58,7 @@ public class AttachmentInterceptor extends HandlerInterceptorAdapter {
 
         return Stream.of(attachments.split(","))
                      .map(AttachmentType::fromQuery)
+                     .filter(Objects::nonNull)
                      .collect(Collectors.toSet());
     }
 }
