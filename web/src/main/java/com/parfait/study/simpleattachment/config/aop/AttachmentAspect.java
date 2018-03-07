@@ -1,7 +1,7 @@
-package com.parfait.study.simpleattachment.config.aop.attachment;
+package com.parfait.study.simpleattachment.config.aop;
 
-import com.parfait.study.simpleattachment.config.aop.attachment.service.AttachService;
-import com.parfait.study.simpleattachment.config.interceptor.attachment.AttachmentTypeHolder;
+import com.parfait.study.simpleattachment.attachment.AttachmentTypeHolder;
+import com.parfait.study.simpleattachment.attachment.service.AttachService;
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentType;
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentWrapperGetter;
 import lombok.NonNull;
@@ -31,7 +31,7 @@ public class AttachmentAspect {
                                              .collect(Collectors.groupingBy(AttachService::getSupportAttachmentType, Collectors.toList()));
     }
 
-    @Pointcut("@annotation(com.parfait.study.simpleattachment.config.interceptor.attachment.Attachable)")
+    @Pointcut("@annotation(com.parfait.study.simpleattachment.attachment.Attachable)")
     private void pointcut() {
     }
 

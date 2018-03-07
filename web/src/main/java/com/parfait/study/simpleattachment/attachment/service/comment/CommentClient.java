@@ -1,4 +1,4 @@
-package com.parfait.study.simpleattachment.config.aop.attachment.service.comment;
+package com.parfait.study.simpleattachment.attachment.service.comment;
 
 import com.parfait.study.simpleattachment.shared.model.board.CommentDto;
 import org.springframework.cloud.openfeign.FeignClient;

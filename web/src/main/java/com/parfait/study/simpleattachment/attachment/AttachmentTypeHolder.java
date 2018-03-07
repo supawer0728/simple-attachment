@@ -1,4 +1,4 @@
-package com.parfait.study.simpleattachment.config.interceptor.attachment;
+package com.parfait.study.simpleattachment.attachment;
 
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentType;
 import lombok.NonNull;

@@ -1,4 +1,4 @@
-package com.parfait.study.simpleattachment.config.aop.attachment.service;
+package com.parfait.study.simpleattachment.attachment.service;
 
 import com.parfait.study.simpleattachment.shared.model.attachment.Attachable;
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentType;

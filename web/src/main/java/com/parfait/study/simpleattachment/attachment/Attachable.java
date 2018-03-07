@@ -1,4 +1,4 @@
-package com.parfait.study.simpleattachment.config.interceptor.attachment;
+package com.parfait.study.simpleattachment.attachment;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

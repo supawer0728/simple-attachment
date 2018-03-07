@@ -1,8 +1,7 @@
 package com.parfait.study.simpleattachment.config.interceptor;
 
-import com.parfait.study.simpleattachment.config.interceptor.attachment.Attachable;
-import com.parfait.study.simpleattachment.config.interceptor.attachment.AttachmentInterceptor;
-import com.parfait.study.simpleattachment.config.interceptor.attachment.AttachmentTypeHolder;
+import com.parfait.study.simpleattachment.attachment.Attachable;
+import com.parfait.study.simpleattachment.attachment.AttachmentTypeHolder;
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentType;
 import org.junit.Before;
 import org.junit.Test;
