@@ -38,16 +38,23 @@ public class AttachmentAspect {
     @AfterReturning(pointcut = "pointcut()", returning = "returnValue")
     public Object afterReturning(Object returnValue) {
 
-        if (attachmentTypeHolder.isEmpty()) {
+        if (attachmentTypeHolder.isEmpty() && !(returnValue instanceof Attachable)) {
             return returnValue;
         }
 
+        executeAttach(returnValue);
+
+        return returnValue;
+    }
+
+    private void executeAttach(Object returnValue) {
+        Attachable attachable = (Attachable) returnValue;
+
         Set<AttachmentType> types = attachmentTypeHolder.getTypes();
+
         types.stream()
              .flatMap(type -> typeToServiceMap.get(type).stream())
              .filter(service -> service.getSupportType().isAssignableFrom(returnValue.getClass()))
-             .forEach(service -> service.attach(returnValue));
-
-        return returnValue;
+             .forEach(service -> service.attach(attachable));
     }
 }
