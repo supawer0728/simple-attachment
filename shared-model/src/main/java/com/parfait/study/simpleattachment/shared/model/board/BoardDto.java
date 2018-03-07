@@ -2,22 +2,21 @@ package com.parfait.study.simpleattachment.shared.model.board;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentWrapper;
-import com.parfait.study.simpleattachment.shared.model.attachment.CommentsAttachable;
+import com.parfait.study.simpleattachment.shared.model.attachment.Attachable;
+import com.parfait.study.simpleattachment.shared.model.attachment.Attachment;
+import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentType;
 import lombok.Data;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BoardDto implements CommentsAttachable {
+public class BoardDto implements Attachable {
     private Long id;
     private String title;
     private String content;
 
     @JsonIgnore
-    private AttachmentWrapper attachmentWrapper = new AttachmentWrapper();
-
-    @Override
-    public long getCommentsAttachableTargetId() {
-        return id;
-    }
+    private Map<AttachmentType, Attachment> attachmentMap = new EnumMap<>(AttachmentType.class);
 }
