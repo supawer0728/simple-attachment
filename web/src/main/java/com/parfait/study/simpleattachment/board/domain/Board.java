@@ -22,9 +22,11 @@ public class Board {
 
     private String title;
     private String content;
+    private Long writerId;
 
-    public Board(@NonNull String title, @NonNull String content) {
+    public Board(@NonNull String title, @NonNull String content, @NonNull Long writerId) {
         this.title = title;
         this.content = content;
+        this.writerId = writerId;
     }
 }
