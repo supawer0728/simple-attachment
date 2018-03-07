@@ -3,7 +3,6 @@ package com.parfait.study.simpleattachment.config.aop;
 import com.parfait.study.simpleattachment.attachment.AttachmentTypeHolder;
 import com.parfait.study.simpleattachment.attachment.service.AttachService;
 import com.parfait.study.simpleattachment.shared.model.attachment.Attachable;
-import com.parfait.study.simpleattachment.shared.model.attachment.Attachment;
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentType;
 import lombok.NonNull;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -53,12 +52,9 @@ public class AttachmentAspect {
 
         Set<AttachmentType> types = attachmentTypeHolder.getTypes();
 
-        Map<AttachmentType, Attachment> attachmentMap =
-                types.stream()
-                     .flatMap(type -> typeToServiceMap.get(type).stream())
-                     .filter(service -> service.getSupportType().isAssignableFrom(returnValue.getClass()))
-                     .collect(Collectors.toMap(AttachService::getSupportAttachmentType, s -> s.getAttachment(attachable)));
-
-        attachable.setAttachmentMap(attachmentMap);
+        types.stream()
+             .flatMap(type -> typeToServiceMap.get(type).stream())
+             .filter(service -> service.getSupportType().isAssignableFrom(returnValue.getClass()))
+             .forEach(service -> service.attach(attachable));
     }
 }

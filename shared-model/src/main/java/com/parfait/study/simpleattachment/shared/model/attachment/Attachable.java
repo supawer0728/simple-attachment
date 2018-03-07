@@ -8,12 +8,20 @@ import java.util.stream.Collectors;
 public interface Attachable {
     Map<AttachmentType, Attachment> getAttachmentMap();
 
-    void setAttachmentMap(Map<AttachmentType, Attachment> attachmentMap);
+    default void attach(AttachmentType type, Attachment attachment) {
+        getAttachmentMap().put(type, attachment);
+    }
 
     @JsonAnyGetter
     default Map<String, Object> getAttachment() {
-        return getAttachmentMap().entrySet()
-                                 .stream()
-                                 .collect(Collectors.toMap(e -> e.getKey().name().toLowerCase(), Map.Entry::getValue));
+        Map<AttachmentType, Attachment> attachmentMap = getAttachmentMap();
+
+        if (attachmentMap.isEmpty()) {
+            return null;
+        }
+
+        return attachmentMap.entrySet()
+                            .stream()
+                            .collect(Collectors.toMap(e -> e.getKey().name().toLowerCase(), Map.Entry::getValue));
     }
 }

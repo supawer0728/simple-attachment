@@ -1,7 +1,6 @@
 package com.parfait.study.simpleattachment.attachment.service;
 
 import com.parfait.study.simpleattachment.shared.model.attachment.Attachable;
-import com.parfait.study.simpleattachment.shared.model.attachment.Attachment;
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentType;
 
 public interface AttachService<T extends Attachable> {
@@ -15,5 +14,5 @@ public interface AttachService<T extends Attachable> {
      * @param attachable
      * @throws ClassCastException
      */
-    Attachment getAttachment(Attachable attachable);
+    void attach(Attachable attachable);
 }
