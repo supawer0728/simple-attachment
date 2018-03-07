@@ -34,7 +34,7 @@ public class AttachWriterToBoardService implements AttachService<BoardDto> {
     @Override
     public void attach(Attachable attachment) {
         BoardDto boardDto = supportType.cast(attachment);
-        WriterDto writerDto = writerClient.getWriterByBoardId(boardDto.getId());
+        WriterDto writerDto = writerClient.getWriter(boardDto.getWriterId());
         attachment.attach(supportAttachmentType, writerDto);
     }
 }

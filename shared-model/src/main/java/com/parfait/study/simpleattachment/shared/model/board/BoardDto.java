@@ -18,6 +18,8 @@ public class BoardDto implements Attachable {
     private Long id;
     private String title;
     private String content;
+    @JsonIgnore
+    private Long writerId;
 
     @Setter(AccessLevel.PRIVATE)
     @JsonIgnore

@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "writer-api", url = "https://jsonplaceholder.typicode.com")
 public interface WriterClient {
     @GetMapping("/users/{id}")
-    WriterDto getWriterByBoardId(@PathVariable("id") long boardId);
+    WriterDto getWriter(@PathVariable("id") long id);
 }

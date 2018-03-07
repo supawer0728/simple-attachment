@@ -15,6 +15,7 @@ public class BoardDtoConverter implements Converter<Board, BoardDto> {
         boardDto.setId(board.getId());
         boardDto.setTitle(board.getTitle());
         boardDto.setContent(board.getContent());
+        boardDto.setWriterId(board.getWriterId());
         return boardDto;
     }
 }
