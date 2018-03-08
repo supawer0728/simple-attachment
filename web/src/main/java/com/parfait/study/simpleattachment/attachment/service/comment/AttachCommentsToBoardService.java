@@ -4,6 +4,7 @@ import com.parfait.study.simpleattachment.attachment.service.AttachService;
 import com.parfait.study.simpleattachment.shared.model.attachment.Attachable;
 import com.parfait.study.simpleattachment.shared.model.attachment.Attachment;
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentType;
+import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentWrapperItem;
 import com.parfait.study.simpleattachment.shared.model.attachment.SimpleAttachmentCollection;
 import com.parfait.study.simpleattachment.shared.model.board.BoardDto;
 import lombok.NonNull;
@@ -33,8 +34,9 @@ public class AttachCommentsToBoardService implements AttachService<BoardDto> {
     }
 
     @Override
-    public Attachment getAttachment(Attachable attachment) {
-        BoardDto boardDto = supportType.cast(attachment);
-        return new SimpleAttachmentCollection<>(commentClient.getComments(boardDto.getId()));
+    public AttachmentWrapperItem getAttachment(Attachable attachable) {
+        BoardDto boardDto = supportType.cast(attachable);
+        Attachment attachment = new SimpleAttachmentCollection<>(commentClient.getComments(boardDto.getId()));
+        return new AttachmentWrapperItem(supportAttachmentType, attachment);
     }
 }
