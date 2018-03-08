@@ -2,9 +2,9 @@ package com.parfait.study.simpleattachment.attachment.service.writer;
 
 import com.parfait.study.simpleattachment.attachment.service.AttachService;
 import com.parfait.study.simpleattachment.shared.model.attachment.Attachable;
+import com.parfait.study.simpleattachment.shared.model.attachment.Attachment;
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentType;
 import com.parfait.study.simpleattachment.shared.model.board.BoardDto;
-import com.parfait.study.simpleattachment.shared.model.board.WriterDto;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,9 +32,8 @@ public class AttachWriterToBoardService implements AttachService<BoardDto> {
     }
 
     @Override
-    public void attach(Attachable attachment) {
+    public Attachment getAttachment(Attachable attachment) {
         BoardDto boardDto = supportType.cast(attachment);
-        WriterDto writerDto = writerClient.getWriter(boardDto.getWriterId());
-        attachment.attach(supportAttachmentType, writerDto);
+        return writerClient.getWriter(boardDto.getWriterId());
     }
 }
