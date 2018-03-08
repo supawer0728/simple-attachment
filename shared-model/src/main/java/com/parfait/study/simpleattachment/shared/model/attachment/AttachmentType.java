@@ -10,28 +10,26 @@ import java.util.stream.Stream;
 
 @Getter
 public enum AttachmentType {
-    COMMENTS("comments");
+    COMMENTS;
 
-    private static Map<String, AttachmentType> queryToTypeMap;
-    private final String query;
+    private static Map<String, AttachmentType> nameToTypeMap;
 
-    AttachmentType(String query) {
-        this.query = query;
+    public String lowerCaseName() {
+        return this.name().toLowerCase();
     }
 
-    public static AttachmentType fromQuery(String query) {
+    public static AttachmentType fromCaseIgnoredName(String name) {
 
-        if (queryToTypeMap == null) {
-            initQueryToTypeMap();
+        if (nameToTypeMap == null) {
+            initMap();
         }
 
-        return queryToTypeMap.get(query);
+        return nameToTypeMap.get(name.toUpperCase());
     }
 
-    private static void initQueryToTypeMap() {
+    private static void initMap() {
         Map<String, AttachmentType> temp = Stream.of(AttachmentType.values())
-                                                 .collect(Collectors.toMap(type -> type.query, Function.identity()));
-
-        AttachmentType.queryToTypeMap = Collections.unmodifiableMap(temp);
+                                                 .collect(Collectors.toMap(type -> type.name().toUpperCase(), Function.identity()));
+        AttachmentType.nameToTypeMap = Collections.unmodifiableMap(temp);
     }
 }

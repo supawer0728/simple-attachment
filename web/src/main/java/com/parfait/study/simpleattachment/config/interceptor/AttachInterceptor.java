@@ -24,6 +24,7 @@ import java.util.stream.Stream;
 public class AttachInterceptor extends HandlerInterceptorAdapter {
 
     public static final String TARGET_PARAMETER_NAME = "attachment";
+    private static final String TARGET_DELIMITER = ",";
     private final Map<HandlerMethod, Boolean> attachableMap = new ConcurrentHashMap<>();
     private final AttachmentTypeHolder attachmentTypeHolder;
 
@@ -58,8 +59,8 @@ public class AttachInterceptor extends HandlerInterceptorAdapter {
             return Collections.emptySet();
         }
 
-        return Stream.of(attachments.split(","))
-                     .map(AttachmentType::fromQuery)
+        return Stream.of(attachments.split(TARGET_DELIMITER))
+                     .map(AttachmentType::fromCaseIgnoredName)
                      .filter(Objects::nonNull)
                      .collect(Collectors.toSet());
     }
