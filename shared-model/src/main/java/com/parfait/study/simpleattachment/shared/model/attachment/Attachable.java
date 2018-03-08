@@ -12,6 +12,10 @@ public interface Attachable {
         getAttachmentMap().put(type, attachment);
     }
 
+    default void attach(Map<? extends AttachmentType, ? extends Attachment> attachment) {
+        getAttachmentMap().putAll(attachment);
+    }
+
     @JsonAnyGetter
     default Map<String, Object> getAttachment() {
         Map<AttachmentType, Attachment> attachmentMap = getAttachmentMap();
