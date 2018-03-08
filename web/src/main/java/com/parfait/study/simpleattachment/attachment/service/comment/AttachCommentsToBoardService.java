@@ -53,11 +53,6 @@ public class AttachCommentsToBoardService implements AttachService<BoardDto> {
     }
 
     private Mono<AttachmentWrapperItem> executeGetAttachment(Attachable attachable) {
-        //        try {
-        //            Thread.sleep(3000);
-        //        } catch (InterruptedException e) {
-        //            e.printStackTrace();
-        //        }
         BoardDto boardDto = supportType.cast(attachable);
         Attachment attachment = new SimpleAttachmentCollection<>(commentClient.getComments(boardDto.getId()));
         return Mono.just(new AttachmentWrapperItem(supportAttachmentType, attachment));

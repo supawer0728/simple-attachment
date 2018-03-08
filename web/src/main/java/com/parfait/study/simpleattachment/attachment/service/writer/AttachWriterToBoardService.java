@@ -52,11 +52,6 @@ public class AttachWriterToBoardService implements AttachService<BoardDto> {
     }
 
     private Mono<AttachmentWrapperItem> executeGetAttachment(Attachable attachable) {
-        //        try {
-        //            Thread.sleep(3000);
-        //        } catch (InterruptedException e) {
-        //            e.printStackTrace();
-        //        }
         BoardDto boardDto = supportType.cast(attachable);
         Attachment attachment = writerClient.getWriter(boardDto.getWriterId());
         return Mono.just(new AttachmentWrapperItem(supportAttachmentType, attachment));
