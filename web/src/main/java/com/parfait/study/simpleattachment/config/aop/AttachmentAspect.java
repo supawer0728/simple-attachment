@@ -43,20 +43,19 @@ public class AttachmentAspect {
             return returnValue;
         }
 
-        executeAttach(returnValue);
+        executeAttach((Attachable) returnValue);
 
         return returnValue;
     }
 
-    private void executeAttach(Object returnValue) {
-        Attachable attachable = (Attachable) returnValue;
+    private void executeAttach(Attachable attachable) {
 
         Set<AttachmentType> types = attachmentTypeHolder.getTypes();
 
         Map<AttachmentType, Attachment> attachmentMap =
                 types.stream()
                      .flatMap(type -> typeToServiceMap.get(type).stream())
-                     .filter(service -> service.getSupportType().isAssignableFrom(returnValue.getClass()))
+                     .filter(service -> service.getSupportType().isAssignableFrom(attachable.getClass()))
                      .collect(Collectors.toMap(AttachService::getSupportAttachmentType, service -> service.getAttachment(attachable)));
 
         attachable.attach(attachmentMap);
