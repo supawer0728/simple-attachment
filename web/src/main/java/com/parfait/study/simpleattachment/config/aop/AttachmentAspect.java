@@ -31,7 +31,7 @@ public class AttachmentAspect {
                                              .collect(Collectors.groupingBy(AttachService::getSupportAttachmentType, Collectors.toList()));
     }
 
-    @Pointcut("@annotation(com.parfait.study.simpleattachment.attachment.Attachable)")
+    @Pointcut("@annotation(com.parfait.study.simpleattachment.attachment.Attach)")
     private void pointcut() {
     }
 
