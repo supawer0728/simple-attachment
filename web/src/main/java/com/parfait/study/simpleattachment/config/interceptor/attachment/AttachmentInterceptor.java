@@ -37,7 +37,7 @@ public class AttachmentInterceptor extends HandlerInterceptorAdapter {
         }
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
-        boolean isAttachable = attachableMap.computeIfAbsent(handlerMethod, key -> key.hasMethodAnnotation(Attachable.class));
+        boolean isAttachable = attachableMap.computeIfAbsent(handlerMethod, key -> key.hasMethodAnnotation(Attach.class));
         if (!isAttachable) {
             return true;
         }

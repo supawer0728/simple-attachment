@@ -1,6 +1,6 @@
 package com.parfait.study.simpleattachment.config.interceptor;
 
-import com.parfait.study.simpleattachment.config.interceptor.attachment.Attachable;
+import com.parfait.study.simpleattachment.config.interceptor.attachment.Attach;
 import com.parfait.study.simpleattachment.config.interceptor.attachment.AttachmentInterceptor;
 import com.parfait.study.simpleattachment.config.interceptor.attachment.AttachmentTypeHolder;
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentType;
@@ -35,7 +35,7 @@ public class AttachmentInterceptorTest {
     @Test
     public void preHandle() throws Exception {
         // given
-        given(handlerMethod.hasMethodAnnotation(Attachable.class)).willReturn(true);
+        given(handlerMethod.hasMethodAnnotation(Attach.class)).willReturn(true);
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setParameter(AttachmentInterceptor.TARGET_PARAMETER_NAME, AttachmentType.COMMENTS.name().toLowerCase());
         MockHttpServletResponse response = new MockHttpServletResponse();
