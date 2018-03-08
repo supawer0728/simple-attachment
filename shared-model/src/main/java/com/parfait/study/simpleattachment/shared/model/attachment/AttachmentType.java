@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 @Getter
 public enum AttachmentType {
-    COMMENTS;
+    COMMENTS, WRITER;
 
     private static Map<String, AttachmentType> nameToTypeMap;
 
