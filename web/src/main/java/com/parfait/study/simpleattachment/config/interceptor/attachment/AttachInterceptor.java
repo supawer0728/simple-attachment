@@ -18,14 +18,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Component
-public class AttachmentInterceptor extends HandlerInterceptorAdapter {
+public class AttachInterceptor extends HandlerInterceptorAdapter {
 
     public static final String TARGET_PARAMETER_NAME = "attachment";
     private final Map<HandlerMethod, Boolean> attachableMap = new ConcurrentHashMap<>();
     private final AttachmentTypeHolder attachmentTypeHolder;
 
     @Autowired
-    public AttachmentInterceptor(@NonNull AttachmentTypeHolder attachmentTypeHolder) {
+    public AttachInterceptor(@NonNull AttachmentTypeHolder attachmentTypeHolder) {
         this.attachmentTypeHolder = attachmentTypeHolder;
     }
 

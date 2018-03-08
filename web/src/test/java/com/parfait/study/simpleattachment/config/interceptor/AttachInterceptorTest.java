@@ -1,7 +1,7 @@
 package com.parfait.study.simpleattachment.config.interceptor;
 
 import com.parfait.study.simpleattachment.config.interceptor.attachment.Attach;
-import com.parfait.study.simpleattachment.config.interceptor.attachment.AttachmentInterceptor;
+import com.parfait.study.simpleattachment.config.interceptor.attachment.AttachInterceptor;
 import com.parfait.study.simpleattachment.config.interceptor.attachment.AttachmentTypeHolder;
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentType;
 import org.junit.Before;
@@ -18,10 +18,10 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
 
-public class AttachmentInterceptorTest {
+public class AttachInterceptorTest {
 
     @InjectMocks
-    private AttachmentInterceptor attachmentInterceptor;
+    private AttachInterceptor attachmentInterceptor;
     @Spy
     private AttachmentTypeHolder attachmentTypeHolder;
     @Mock
@@ -37,7 +37,7 @@ public class AttachmentInterceptorTest {
         // given
         given(handlerMethod.hasMethodAnnotation(Attach.class)).willReturn(true);
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setParameter(AttachmentInterceptor.TARGET_PARAMETER_NAME, AttachmentType.COMMENTS.name().toLowerCase());
+        request.setParameter(AttachInterceptor.TARGET_PARAMETER_NAME, AttachmentType.COMMENTS.name().toLowerCase());
         MockHttpServletResponse response = new MockHttpServletResponse();
 
         // when

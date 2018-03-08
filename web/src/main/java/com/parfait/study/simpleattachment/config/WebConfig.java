@@ -1,6 +1,6 @@
 package com.parfait.study.simpleattachment.config;
 
-import com.parfait.study.simpleattachment.config.interceptor.attachment.AttachmentInterceptor;
+import com.parfait.study.simpleattachment.config.interceptor.attachment.AttachInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
-    private AttachmentInterceptor attachmentInterceptor;
+    private AttachInterceptor attachmentInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
