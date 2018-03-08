@@ -3,6 +3,7 @@ package com.parfait.study.simpleattachment.attachment.service;
 import com.parfait.study.simpleattachment.shared.model.attachment.Attachable;
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentType;
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentWrapperItem;
+import reactor.core.publisher.Mono;
 
 public interface AttachService<T extends Attachable> {
     AttachmentType getSupportAttachmentType();
@@ -15,5 +16,5 @@ public interface AttachService<T extends Attachable> {
      * @param attachable
      * @throws ClassCastException
      */
-    AttachmentWrapperItem getAttachment(Attachable attachable);
+    Mono<AttachmentWrapperItem> getAttachment(Attachable attachable);
 }
