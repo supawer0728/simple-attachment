@@ -1,6 +1,6 @@
 package com.parfait.study.simpleattachment.config.interceptor;
 
-import com.parfait.study.simpleattachment.attachment.Attachable;
+import com.parfait.study.simpleattachment.attachment.Attach;
 import com.parfait.study.simpleattachment.attachment.AttachmentTypeHolder;
 import com.parfait.study.simpleattachment.shared.model.attachment.AttachmentType;
 import lombok.NonNull;
@@ -40,7 +40,7 @@ public class AttachmentInterceptor extends HandlerInterceptorAdapter {
         }
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
-        boolean isAttachable = attachableMap.computeIfAbsent(handlerMethod, key -> key.hasMethodAnnotation(Attachable.class));
+        boolean isAttachable = attachableMap.computeIfAbsent(handlerMethod, key -> key.hasMethodAnnotation(Attach.class));
         if (!isAttachable) {
             return true;
         }

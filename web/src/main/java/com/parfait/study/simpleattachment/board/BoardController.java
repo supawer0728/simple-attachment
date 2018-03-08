@@ -1,6 +1,6 @@
 package com.parfait.study.simpleattachment.board;
 
-import com.parfait.study.simpleattachment.attachment.Attachable;
+import com.parfait.study.simpleattachment.attachment.Attach;
 import com.parfait.study.simpleattachment.board.converter.BoardDtoConverter;
 import com.parfait.study.simpleattachment.board.domain.Board;
 import com.parfait.study.simpleattachment.board.domain.BoardRepository;
@@ -37,7 +37,7 @@ public class BoardController {
                               .collect(Collectors.toList());
     }
 
-    @Attachable
+    @Attach
     @GetMapping("/{id}")
     public BoardDto getOne(@PathVariable("id") Board board) {
         return boardDtoConverter.convert(board);
