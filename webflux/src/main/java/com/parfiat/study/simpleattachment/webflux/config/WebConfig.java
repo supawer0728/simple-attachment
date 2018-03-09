@@ -1,6 +1,7 @@
 package com.parfiat.study.simpleattachment.webflux.config;
 
 import com.parfiat.study.simpleattachment.webflux.board.BoardHandler;
+import com.parfiat.study.simpleattachment.webflux.config.filter.AttachmentHandlerFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,9 +20,10 @@ public class WebConfig extends DelegatingWebFluxConfiguration {
 
     @Autowired
     private BoardHandler boardHandler;
+    private AttachmentHandlerFilter attachmentFilter = new AttachmentHandlerFilter();
 
     @Bean
-    public RouterFunction<?> routerFunctionA() {
-        return route(GET("/boards/{id}").and(accept(APPLICATION_JSON)), boardHandler::getBoard);
+    public RouterFunction<?> boardRouterFunctions() {
+        return route(GET("/boards/{id}").and(accept(APPLICATION_JSON)), boardHandler::getBoard).filter(attachmentFilter.filter());
     }
 }

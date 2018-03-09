@@ -1,8 +1,8 @@
 package com.parfiat.study.simpleattachment.webflux.board;
 
-import com.parfait.study.simpleattachment.shared.model.board.BoardDto;
+import com.parfait.study.simpleattachment.shared.model.attachment.Attachable;
+import com.parfiat.study.simpleattachment.webflux.attachment.AttachExecutor;
 import com.parfiat.study.simpleattachment.webflux.board.converter.BoardDtoConverter;
-import com.parfiat.study.simpleattachment.webflux.board.domain.Board;
 import com.parfiat.study.simpleattachment.webflux.board.domain.BoardRepository;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,28 +12,35 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
+import static com.parfiat.study.simpleattachment.webflux.config.filter.AttachmentHandlerFilter.TARGET_ATTRIBUTE_NAME;
 import static org.springframework.web.reactive.function.BodyInserters.fromObject;
 
 @Component
 public class BoardHandler {
     private final BoardRepository boardRepository;
     private final BoardDtoConverter boardDtoConverter;
+    private final AttachExecutor attachExecutor;
+    private final Mono<ServerResponse> notFound = ServerResponse.notFound().build();
 
     @Autowired
     public BoardHandler(@NonNull BoardRepository boardRepository,
-                        @NonNull BoardDtoConverter boardDtoConverter) {
+                        @NonNull BoardDtoConverter boardDtoConverter,
+                        @NonNull AttachExecutor attachExecutor) {
         this.boardRepository = boardRepository;
         this.boardDtoConverter = boardDtoConverter;
+        this.attachExecutor = attachExecutor;
     }
 
     public Mono<ServerResponse> getBoard(ServerRequest request) {
         long boardId = Long.valueOf(request.pathVariable("id"));
-        Mono<ServerResponse> notFound = ServerResponse.notFound().build();
-        Mono<Board> boardMono = boardRepository.findOne(boardId);
-        Mono<BoardDto> boardDtoMono = boardMono.map(boardDtoConverter::convert);
-        return boardDtoMono.flatMap(boardDto -> ServerResponse.ok()
-                                                              .contentType(MediaType.APPLICATION_JSON)
-                                                              .body(fromObject(boardDto))
-                                                              .switchIfEmpty(notFound));
+        Mono<Attachable> attachableMono =
+                boardRepository.findOne(boardId)
+                               .map(boardDtoConverter::convert)
+                               .flatMap(boardDto -> attachExecutor.attach(boardDto, request.attribute(TARGET_ATTRIBUTE_NAME).get()));
+
+        return attachableMono.flatMap(boardDto -> ServerResponse.ok()
+                                                                .contentType(MediaType.APPLICATION_JSON)
+                                                                .body(fromObject(boardDto))
+                                                                .switchIfEmpty(notFound));
     }
 }

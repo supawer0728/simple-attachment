@@ -33,6 +33,7 @@ subprojects {
 
     dependencies {
         compileOnly('org.projectlombok:lombok')
+        compile('io.projectreactor:reactor-core')
     }
 }
 

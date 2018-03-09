@@ -9,12 +9,9 @@ import java.util.stream.Collectors;
 public interface Attachable {
     AttachmentWrapper getAttachmentWrapper();
 
-    default void attach(AttachmentWrapperItem item) {
-        getAttachmentWrapper().put(item);
-    }
-
-    default void attach(Collection<AttachmentWrapperItem> items) {
+    default Attachable attach(Collection<AttachmentWrapperItem> items) {
         getAttachmentWrapper().putAll(items);
+        return this;
     }
 
     @JsonAnyGetter
