@@ -42,6 +42,12 @@ project(":web") {
     }
 }
 
+project(":webflux") {
+    dependencies {
+        compile project(":shared-model")
+    }
+}
+
 ext {
     springCloudVersion = 'Finchley.M7'
 }
