@@ -23,7 +23,7 @@ public class WebConfig extends DelegatingWebFluxConfiguration {
     private AttachmentHandlerFilter attachmentFilter = new AttachmentHandlerFilter();
 
     @Bean
-    public RouterFunction<?> boardRouterFunctions() {
+    public RouterFunction<?> boardRouter() {
         return route(GET("/boards/{id}").and(accept(APPLICATION_JSON)), boardHandler::getBoard).filter(attachmentFilter.filter());
     }
 }
