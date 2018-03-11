@@ -21,7 +21,7 @@ public class WebConfig extends DelegatingWebFluxConfiguration {
     private BoardHandler boardHandler;
 
     @Bean
-    public RouterFunction<?> routerFunctionA() {
+    public RouterFunction<?> boardRouter() {
         return route(GET("/boards/{id}").and(accept(APPLICATION_JSON)), boardHandler::getBoard);
     }
 }

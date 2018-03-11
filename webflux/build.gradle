@@ -1,10 +1,6 @@
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-webflux')
-    compile('org.springframework.cloud:spring-cloud-starter-openfeign')
-    compile('io.projectreactor.addons:reactor-extra')
-    runtime('com.h2database:h2')
 
-    testCompile("io.projectreactor:reactor-test")
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('io.github.benas:random-beans:3.7.0')
 }
