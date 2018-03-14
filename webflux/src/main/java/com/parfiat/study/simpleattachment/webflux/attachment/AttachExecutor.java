@@ -28,12 +28,8 @@ public class AttachExecutor {
                                              .collect(Collectors.groupingBy(AttachService::getSupportAttachmentType, Collectors.toList()));
     }
 
-    public Mono<Attachable> attach(Attachable attachable, Object attachmentTypeHolder) {
+    public Mono<Attachable> attach(Attachable attachable, AttachmentTypeHolder holder) {
 
-        if (attachmentTypeHolder == null && !(attachmentTypeHolder instanceof AttachmentTypeHolder)) {
-            return Mono.just(attachable);
-        }
-        AttachmentTypeHolder holder = (AttachmentTypeHolder) attachmentTypeHolder;
         if (holder.isEmpty()) {
             return Mono.just(attachable);
         }
